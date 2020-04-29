@@ -1,9 +1,9 @@
 ### 获取服务列表
-GET http://localhost:8091/server/a/get?serviceName=nacos-server-a
+GET http://localhost:8098/server/a/get?serviceName=nacos-server-a
 Accept: application/json
 
 ###  通过服务A本地服务
-GET http://localhost:8091/server/a/test
+GET http://localhost:8098/server/a/test
 
 ###  通过服务A调用服务B
 GET http://localhost:8091/server/a/b
