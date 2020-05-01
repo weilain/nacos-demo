@@ -1,19 +1,73 @@
 # NACOS-DEMO
 
-> `spring-boot` `nacos`     
->  nacos-config-spring-boot.version      0.2.7      
->  nacos-discovery-spring-boot-starter   0.2.7      
+*依赖版本*
+```xml
+<spring-boot.version>2.2.5.RELEASE</spring-boot.version>
+<nacos-config-spring-boot.version>0.2.7</nacos-config-spring-boot.version>
+<nacos-discovery-spring-boot-starter>0.2.7</nacos-discovery-spring-boot-starter>
+<spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
+<spring-cloud-dependencies>Hoxton.SR4</spring-cloud-dependencies>
+```
 
 ## 快速启动
 
- 本地启动一个 `nacos` 服务, 端口用默认配置就行. 需要更换端口或IP,自行修改配置文件中的IP地址.
- 默认地址为 `127.0.0.1:8848`
+直接启动每个模块中的 `Application` 就行了。（暂时云上的 nacos 是可用的，用的朋友的云）
 
-* server-a 启动两份
-* server-b 启动一份
+接口测试在 项目的 http 下
 
-## 测试
+## 云上 `nacos` 一共有三个配置文件
 
-* 调用接口 `GET http://localhost:8092/server/b/a`
+### `server-a.propertes`
 
-通过服务B去远程调用服务A的 `server/a/test` 接口
+```properties
+### spring
+spring.application.name=nacos-server-a
+### nacos
+nacos.discovery.server-addr=140.143.224.69:8848
+nacos.discovery.register.enabled=true
+nacos.discovery.auto-register=true
+nacos.discovery.register.group-name=demo
+nacos.discovery.register.port=${server.port}
+nacos.discovery.register.service-name=${spring.application.name}
+```
+
+### `server-b.properties`
+
+```properties
+### server
+server.port=8099
+### spring
+spring.application.name=nacos-server-b
+### nacos
+
+nacos.config.auto-refresh=true
+nacos.discovery.server-addr=140.143.224.69:8848
+nacos.discovery.register.enabled=true
+nacos.discovery.auto-register=true
+nacos.discovery.register.group-name=demo
+nacos.discovery.register.port=${server.port}
+nacos.discovery.register.service-name=${spring.application.name}
+```
+
+### `gateway.properties`
+
+```properties
+server.port=8677
+spring.cloud.gateway.discovery.locator.enabled=true
+spring.cloud.gateway.discovery.locator.lowerCaseServiceId=true
+spring.cloud.nacos.discovery.server-addr=140.143.224.69:8848
+
+spring.cloud.loadbalancer.retry.enabled=false
+#设置路由id
+spring.cloud.gateway.routes[0].id=nacos-server-a
+spring.cloud.gateway.routes[0].uri=lb://nacos-server-a
+spring.cloud.gateway.routes[0].predicates[0]=Path=/nacos-server-a/*
+spring.cloud.gateway.routes[0].filters[0]=StripPrefix=1
+
+spring.cloud.gateway.routes[1].id=nacos-server-b
+spring.cloud.gateway.routes[1].uri=lb://nacos-server-b
+spring.cloud.gateway.routes[1].predicates[0]=Path=/nacos-server-b/*
+spring.cloud.gateway.routes[1].filters[0]=StripPrefix=1
+
+spring.cloud.gateway.discovery.locator.lower-case-service-id=true
+```
