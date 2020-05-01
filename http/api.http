@@ -15,6 +15,15 @@ GET http://localhost:8092/server/b/test
 GET http://localhost:8092/server/b/a
 ###
 
+### 测试网关
+## 请求服务A， 启动了两组，端口8011，8012。 会轮训访问
+GET http://localhost:8677/nacos-server-a/a/test
+
+###
+## 请求服务B
+GET http://localhost:8677/nacos-server-b/b/test
+
+###
 
 
 
