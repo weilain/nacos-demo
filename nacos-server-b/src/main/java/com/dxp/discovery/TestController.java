@@ -1,4 +1,4 @@
-package discovery;
+package com.dxp.discovery;
 
 import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.exception.NacosException;

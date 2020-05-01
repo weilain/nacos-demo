@@ -12,9 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @NacosPropertySources({
         @NacosPropertySource(dataId = "server-a.properties", groupId = "demo", name = "carzy"),
 })
-public class NacosDiscoveryApplication {
+public class ServerAApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NacosDiscoveryApplication.class, args);
+        SpringApplication.run(ServerAApplication.class, args);
     }
 }
