@@ -24,7 +24,7 @@ public class DiscoveryController {
 
     @NacosInjected
     private NamingService namingService;
-    @Value("${nacos.config.group}")
+    @Value("${spring.cloud.nacos.config.group}")
     private String groupName;
     @Value("${server.port}")
     private String port;

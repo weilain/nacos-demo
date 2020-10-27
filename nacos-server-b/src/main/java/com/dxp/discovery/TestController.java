@@ -23,9 +23,7 @@ public class TestController {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    @NacosInjected
-    private NamingService namingService;
-    @Value("${nacos.config.group}")
+    @Value("${spring.cloud.nacos.config.group}")
     private String groupName;
     @Value("${server.port}")
     private int port;
@@ -33,21 +31,9 @@ public class TestController {
     @Autowired
     private ServerAClient serverAClient;
 
-    @GetMapping(value = "/get")
-    public List<Instance> get(@RequestParam String serviceName) throws NacosException {
-        return namingService.getAllInstances(serviceName, groupName);
-    }
-
     @GetMapping(value = "/test")
     public String test() {
         return "this is server b: " + port;
-    }
-
-    @GetMapping(value = "/a")
-    public String a() throws NacosException {
-        Instance instance = namingService.selectOneHealthyInstance("nacos-server-a", groupName);
-        String url = String.format("http://%s:%d/server/a/test", instance.getIp(), instance.getPort());
-        return this.restTemplate.getForObject(url, String.class);
     }
 
     @GetMapping(value = "/feign")
