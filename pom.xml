@@ -21,8 +21,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
-        <nacos-config-spring-boot.version>0.2.7</nacos-config-spring-boot.version>
         <nacos-discovery-spring-boot-starter>0.2.7</nacos-discovery-spring-boot-starter>
+        <nacos-config-spring-boot.version>0.2.7</nacos-config-spring-boot.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
         <spring-cloud-dependencies>Hoxton.SR4</spring-cloud-dependencies>
     </properties>

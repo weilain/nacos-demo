@@ -4,6 +4,7 @@ import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,9 @@ public class TestController {
     @Value("${server.port}")
     private int port;
 
+    @Autowired
+    private ServerAClient serverAClient;
+
     @GetMapping(value = "/get")
     public List<Instance> get(@RequestParam String serviceName) throws NacosException {
         return namingService.getAllInstances(serviceName, groupName);
@@ -44,6 +48,11 @@ public class TestController {
         Instance instance = namingService.selectOneHealthyInstance("nacos-server-a", groupName);
         String url = String.format("http://%s:%d/server/a/test", instance.getIp(), instance.getPort());
         return this.restTemplate.getForObject(url, String.class);
+    }
+
+    @GetMapping(value = "/feign")
+    public String feignA(){
+        return serverAClient.test();
     }
 }
 
