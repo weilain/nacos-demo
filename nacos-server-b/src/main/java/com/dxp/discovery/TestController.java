@@ -18,7 +18,6 @@ import java.util.List;
  * @author carzy
  */
 @RestController
-@RequestMapping("server/b")
 public class TestController {
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -31,8 +30,13 @@ public class TestController {
     @Autowired
     private ServerAClient serverAClient;
 
-    @GetMapping(value = "/test")
+    @GetMapping("/jenkins")
     public String test() {
+        return "Hello Jenkins V5----";
+    }
+
+    @GetMapping(value = "/test")
+    public String jenkins() {
         return "this is server b: " + port;
     }
 

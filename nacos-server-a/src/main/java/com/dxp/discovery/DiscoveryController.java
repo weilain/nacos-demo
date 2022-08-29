@@ -17,7 +17,6 @@ import java.util.List;
  * @author carzy
  */
 @RestController
-@RequestMapping("server/a")
 public class DiscoveryController {
 
     private RestTemplate restTemplate = new RestTemplate();

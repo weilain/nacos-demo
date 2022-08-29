@@ -15,23 +15,25 @@
 
 接口测试在 项目的 http 下
 
-## 云上 `nacos` 一共有三个配置文件
+## `nacos` 需要添加三个配置文件，注意命名空间与组
 
-### `server-a.propertes`
+### `server-a`
 
 ```properties
+### server
+server.port=8098
 ### spring
 spring.application.name=nacos-server-a
 ### nacos
-nacos.discovery.server-addr=140.143.224.69:8848
+nacos.discovery.server-addr=127.0.0.1:8848
 nacos.discovery.register.enabled=true
 nacos.discovery.auto-register=true
-nacos.discovery.register.group-name=demo
+nacos.discovery.register.group-name=DEFAULT_GROUP
 nacos.discovery.register.port=${server.port}
 nacos.discovery.register.service-name=${spring.application.name}
 ```
 
-### `server-b.properties`
+### `server-b`
 
 ```properties
 ### server
@@ -41,21 +43,21 @@ spring.application.name=nacos-server-b
 ### nacos
 
 nacos.config.auto-refresh=true
-nacos.discovery.server-addr=140.143.224.69:8848
+nacos.discovery.server-addr=127.0.0.1:8848
 nacos.discovery.register.enabled=true
 nacos.discovery.auto-register=true
-nacos.discovery.register.group-name=demo
+nacos.discovery.register.group-name=DEFAULT_GROUP
 nacos.discovery.register.port=${server.port}
 nacos.discovery.register.service-name=${spring.application.name}
 ```
 
-### `gateway.properties`
+### `gateway`
 
 ```properties
 server.port=8677
 spring.cloud.gateway.discovery.locator.enabled=true
 spring.cloud.gateway.discovery.locator.lowerCaseServiceId=true
-spring.cloud.nacos.discovery.server-addr=140.143.224.69:8848
+spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
 
 spring.cloud.loadbalancer.retry.enabled=false
 #设置路由id
